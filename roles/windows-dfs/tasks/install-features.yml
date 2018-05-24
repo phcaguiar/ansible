@@ -33,5 +33,5 @@
 
 - name: Enable DedupVolume
   win_shell: Enable-DedupVolume -Volume "{{ dfs_disk_drive }}" -UsageType Default
-  when: dfs_disk_drive is defined
+  when: dfs_disk_drive != ""
   ignore_errors: yes
