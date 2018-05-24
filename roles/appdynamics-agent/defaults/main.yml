@@ -1,0 +1,18 @@
+# Dynamic Variables
+
+controller_host: ""
+application_name: ""
+account_name: ""
+password: ""
+application_executable: ""
+tier_name: ""
+application_service: ""
+iis_automatic_enabled: "false" 
+
+# Default Variables
+
+temp_directory: "C:\\Temp"
+server_port: "8090"
+appdynamics_directory: "%SystemDrive%\\AppDynamics\\DotNetAgent\\Config"
+appdynamics_service: "AppDynamics.Agent.Coordinator_service"
+appdynamics_client_download: ""

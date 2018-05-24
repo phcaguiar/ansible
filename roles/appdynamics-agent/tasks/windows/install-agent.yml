@@ -1,0 +1,5 @@
+---
+
+- name: Install AppDynamics Agent
+  win_package: 
+    path: "{{ temp_directory }}\\dotNetAgentSetup.msi"

@@ -1,0 +1,20 @@
+---
+
+- name: Create a Temp Directory
+  include: windows/create-directory.yml
+
+- name: Copy the AppDynamics config.xml File
+  include: windows/copy-config-file.yml
+ 
+- name: Download AppDynamics Agent from Private Artifactory
+  include: windows/download-agent.yml
+ 
+- name: Install AppDynamics Agent
+  include: windows/install-agent.yml
+  
+
+- name: Delete the AppDynamics Installer File
+  include: windows/delete-file.yml
+
+- name: Restart Application Service  
+  include: windows/restart-app.yml

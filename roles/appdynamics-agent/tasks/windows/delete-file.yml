@@ -1,0 +1,5 @@
+---
+- name: Create a Temp Directory
+  win_file:
+    path: "{{ temp_directory }}\\dotNetAgentSetup.msi"
+    state: absent

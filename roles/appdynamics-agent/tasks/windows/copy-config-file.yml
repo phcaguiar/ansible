@@ -1,0 +1,4 @@
+- name: Copy a config.xml File
+  win_template:
+    src: config.xml.j2
+    dest: "{{ appdynamics_directory }}\\config.xml"

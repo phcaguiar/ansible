@@ -1,0 +1,5 @@
+---
+- name: Restart the Application Service
+  win_service:
+    name: "{{ application_service }}"
+    state: restarted

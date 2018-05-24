@@ -1,0 +1,10 @@
+---
+- name: Create a Temp Directory
+  win_file:
+    path: "{{ temp_directory }}"
+    state: directory
+
+- name: Create the AppDynamics Directory
+  win_file:
+    path: "{{ appdynamics_directory }}"
+    state: directory

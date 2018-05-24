@@ -1,0 +1,5 @@
+---
+- name: Download AppDynamics Installer from Private Artifactory
+  win_get_url:
+    url: "{{ appdynamics_client_download }}"
+    dest: "{{ temp_directory }}\\dotNetAgentSetup.msi"

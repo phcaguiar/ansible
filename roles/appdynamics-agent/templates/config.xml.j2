@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appdynamics-agent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <controller host="{{ controller_host }}" port="{{ server_port }}" ssl="false" enable_tls12="false">
+    <application name="{{ application_name }}" />
+    <account name="{{ account_name }}" password="{{ password }}" />
+  </controller>
+  <machine-agent />
+  <app-agents>
+    <IIS>
+      <automatic enabled="{{ iis_automatic_enabled }}"/>
+      <applications />
+    </IIS>
+    <standalone-applications>
+      <standalone-application executable="{{ application_executable }}">
+        <tier name="{{ tier_name }}" />
+      </standalone-application>
+    </standalone-applications>
+  </app-agents>
+</appdynamics-agent>
