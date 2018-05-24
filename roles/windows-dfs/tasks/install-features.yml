@@ -1,0 +1,37 @@
+---
+- name: Install FS-DFS-Namespaces with sub features and management tools
+  win_feature:
+    name: FS-DFS-Namespace
+    state: present
+    restart: True
+    include_sub_features: True
+    include_management_tools: True
+
+- name: Install DFS-Replication with sub features and management tools
+  win_feature:
+    name: FS-DFS-Replication
+    state: present
+    restart: True
+    include_sub_features: True
+    include_management_tools: True
+
+- name: Install FS-Resource-Manager with sub features and management tools
+  win_feature:
+    name: FS-Resource-Manager
+    state: present
+    restart: True
+    include_sub_features: True
+    include_management_tools: True
+
+- name: Install FS-Data-Deduplication with sub features and management tools
+  win_feature:
+    name: FS-Data-Deduplication
+    state: present
+    restart: True
+    include_sub_features: True
+    include_management_tools: True  
+
+- name: Enable DedupVolume
+  win_shell: Enable-DedupVolume -Volume "{{ dfs_disk_drive }}" -UsageType Default
+  when: dfs_disk_drive is defined
+  ignore_errors: yes

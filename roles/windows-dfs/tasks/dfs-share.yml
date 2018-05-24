@@ -1,0 +1,57 @@
+---
+- name: Create DFS Local Path
+  win_file:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}"
+    state: directory
+
+- name: Create DFS Share Name
+  win_share:
+    name: "{{ dfs_share_name }}"
+    description: "{{ dfs_share_description }}"
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}"
+    list: no
+    full: "{{ dfs_full_permissions }}"
+    read: "{{ dfs_read_permissions }}"
+    deny: "{{ dfs_deny_permissions }}"
+
+- name: Disable inherited ACE's
+  win_acl_inheritance:
+    path: "{{ dfs_root_path }}"
+    state: absent
+
+- name: ACL Configuration System Group
+  win_acl:
+    path: "{{ dfs_root_path }}"
+    user: "{{ system_group }}"
+    rights: "{{ system_group_rights }}"
+    type: allow
+    state: present
+
+- name: ACL Configuration Administrators Group
+  win_acl:
+    path: "{{ dfs_root_path }}"
+    user: "{{ administrators_group }}"
+    rights: "{{ administrators_group_rights }}"
+    type: allow
+    state: present
+
+- name: Disable inherited ACE's
+  win_acl_inheritance:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}"
+    state: absent
+
+- name: ACL Configuration Create Owners Group
+  win_acl:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}"
+    user: "{{ create_owners_group }}"
+    rights: "{{ create_owners_group_rights }}"
+    type: allow
+    state: present
+
+- name: ACL Configuration Everyone Group
+  win_acl:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}"
+    user: "{{ everyone_group }}"
+    rights: "{{ everyone_group_rights }}"
+    type: allow
+    state: present

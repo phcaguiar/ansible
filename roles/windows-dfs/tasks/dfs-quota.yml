@@ -1,0 +1,3 @@
+---
+- name: Create DFS Default Quota
+  win_shell: New-FsrmQuota -Path "{{ dfs_root_path }}\{{ dfs_share_name }}" -Description "{{ dfs_quota_description }}}" -Size {{ dfs_quota }}

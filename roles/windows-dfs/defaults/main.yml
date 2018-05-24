@@ -1,0 +1,34 @@
+---
+
+# DFS Share Project Variables
+
+project_name: "" # Insert Your Project Name. Ex. "Infrastructure"
+user_or_group_project: "" # Insert Your Domain Credentials Name. Ex. "Domain\\Username" or "Domain\\GroupName"
+user_or_group_project_rights: "" # Insert Permissions on Project DFS Path for your Domain Credentials. Ex. "Read" or "Write"  or "Modify" or "FullControl" or "Delete"
+
+## DFS Configuration Variables
+
+dfs_domain_name: "" # Name of the Active Directory Domain Ex. "contoso.com"
+dfs_primary_server: "" # Name of the Primary DFS Server
+dfs_secondary_server: "" # Name of the Secondary DFS Server
+dfs_root_path: "" # Name of the DFS Root Path. Ex. "D:\\DFSRoot"
+dfs_share_name: "" # Name of the DFS Share Name. Ex. "Share"
+dfs_share_description: "" # Name of the DFS Share Description. Ex. ""
+dfs_full_permissions: "" # Name of the Domain Credentils Full Permissions on DFS Share. Ex. "CONTOSO.COM\\GroupOrUsername"
+dfs_read_permissions: "" # Name of the Domain Credentils Read Permissions on DFS Share. Ex. "CONTOSO.COM\\GroupOrUsername"
+dfs_deny_permissions: "" # Name of the Domain Credentils Deny Permissions on DFS Share. Ex. "CONTOSO.COM\\GroupOrUsername"
+dfs_type: "DomainV2" # Name of the DFS Type. Ex. DomainV2
+dfs_quota_description: "Default DFS Quota" # Name of the Quota Description. Ex. "Default DFS Quota"
+dfs_quota: "" # Name of the Quota Size. Ex. "5GB"
+dfs_disk_drive: "" # Name of the DFS Disk Drive. Ex. "D:"
+
+# DFS Default Share Permissions
+
+create_owners_group: "Creator Owner" # Name of the Create Owners Group
+system_group: "System" # Name of the Local System Group
+administrators_group: "Administrators" # Name of the Local Administrators Group
+everyone_group: "Everyone" # Name of the Everyone Group
+create_owners_group_rights: "Modify" # Name of the Create Owners Group Rights
+system_group_rights: "FullControl" # Name of the System Group Rights
+administrators_group_rights: "FullControl" # Name of the Administrators Group Rights
+everyone_group_rights: "Read" # Name of the Everyone Group Rights

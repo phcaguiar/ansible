@@ -1,0 +1,42 @@
+---
+- name: Create Project Local Path
+  win_file:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}\\{{ project_name }}"
+    state: directory
+
+- name: Disable inherited ACE's
+  win_acl_inheritance:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}\\{{ project_name }}"
+    state: absent
+
+- name: ACL Configuration Create Owners Group
+  win_acl:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}\\{{ project_name }}"
+    user: "{{ create_owners_group }}"
+    rights: "{{ create_owners_group_rights }}"
+    type: allow
+    state: present
+
+- name: ACL Configuration System Group
+  win_acl:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}\\{{ project_name }}"
+    user: "{{ system_group }}"
+    rights: "{{ system_group_rights }}"
+    type: allow
+    state: present
+
+- name: ACL Configuration Administrators Group
+  win_acl:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}\\{{ project_name }}"
+    user: "{{ administrators_group }}"
+    rights: "{{ administrators_group_rights }}"
+    type: allow
+    state: present
+
+- name: ACL Configuration Project Team Group
+  win_acl:
+    path: "{{ dfs_root_path }}\\{{ dfs_share_name }}\\{{ project_name }}"
+    user: "{{ user_or_group_project }}"
+    rights: "{{ user_or_group_project_rights }}"
+    type: allow
+    state: present

@@ -1,0 +1,20 @@
+---
+- name: Install Windows Features
+  include: install-features.yml
+  when: DEPLOY_DFS == True
+
+- name: Create DFS Directory and Share
+  include: dfs-share.yml
+  when: DEPLOY_DFS == True
+
+- name: Create DFS Quota
+  include: dfs-quota.yml
+  when: DEPLOY_DFS == True
+
+- name: execute namespace
+  include: dfs-config.yml
+  when: (inventory_hostname in groups['primary-dfs'] and DEPLOY_DFS == True)
+
+- name: Create Project Team Share
+  include: dfs-project-team-path.yml
+  when: PROJECT_TEAM_PATH == True

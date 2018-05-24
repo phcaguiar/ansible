@@ -1,0 +1,18 @@
+---
+- name: Run New-DfsnRoot Powershell Command
+  win_shell: New-DfsnRoot -Path "\\{{ dfs_domain_name }}\{{ dfs_share_name }}" -TargetPath "\\{{ dfs_primary_server }}.{{ dfs_domain_name }}\{{ dfs_share_name }}"  -Type "{{ dfs_type }}" -EnableSiteCosting $true -EnableAccessBasedEnumeration $True
+
+- name: Run New-DfsnRootTarget Powershell Command
+  win_shell: New-DfsnRootTarget -TargetPath "\\{{ dfs_secondary_server }}.{{ dfs_domain_name }}\{{ dfs_share_name }}" -Path "\\{{ dfs_domain_name }}\{{ dfs_share_name }}"
+
+- name: Create DFS Replication Group
+  win_shell: New-DfsReplicationGroup -GroupName "{{ dfs_share_name }}" | New-DfsReplicatedFolder -FolderName "{{ dfs_share_name }}" | Add-DfsrMember -ComputerName "{{ dfs_primary_server }}.{{ dfs_domain_name }}" | Add-DfsrMember -ComputerName "{{ dfs_secondary_server }}.{{ dfs_domain_name }}"
+
+- name: Set DFS Membership in GroupName
+  win_shell: Set-DfsrMembership -GroupName "{{ dfs_share_name }}" -FolderName "{{ dfs_share_name }}" -ContentPath "{{ dfs_root_path }}\{{ dfs_share_name }}" -ComputerName "{{ dfs_primary_server }}.{{ dfs_domain_name }}","{{ dfs_secondary_server }}.{{ dfs_domain_name }}" -confirm:$false -Force
+
+- name: Run Add-DfsrConnection Powershell Command
+  win_shell: Add-DfsrConnection -GroupName "{{ dfs_share_name }}" -SourceComputerName "{{ dfs_primary_server }}.{{ dfs_domain_name }}" -DestinationComputerName "{{ dfs_secondary_server }}.{{ dfs_domain_name }}" 
+
+- name: Set Primary DFS Membership in GroupName
+  win_shell: Set-DfsrMembership -GroupName "{{ dfs_share_name }}" -FolderName "{{ dfs_share_name }}" -ContentPath "{{ dfs_root_path }}\{{ dfs_share_name }}" -ComputerName "{{ dfs_primary_server }}.{{ dfs_domain_name }}" -PrimaryMember $true -Force
