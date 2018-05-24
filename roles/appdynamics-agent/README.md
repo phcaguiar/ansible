@@ -1,4 +1,4 @@
-![alt text](https://github.com/stone-payments/ansible-appdynamics-agent/blob/master/img/logo.svg)
+![alt text](https://github.com/phcaguiar/ansible/tree/master/roles/appdynamics-agent/img/logo.svg)
 
 AppDynamics Installer
 =========
