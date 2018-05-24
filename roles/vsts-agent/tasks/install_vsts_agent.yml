@@ -1,0 +1,52 @@
+---
+  - name: Mount base install command
+    set_fact:
+        install_command: "{{ AGENT_FOLDER }}\\config.cmd --unattended --url {{ VSTS_URL }} \
+        --auth PAT --token {{ AUTH_TOKEN }} --projectName {{ PROJECT_NAME }} --agent {{ AGENT_NAME }} --runAsService --replace "
+
+  - name: Add default agent pool to install command
+    set_fact:
+      install_command: "{{ install_command }} --pool {{ AGENT_POOL }}"
+    when: AGENT_POOL|default("") != "" 
+
+  - name: Fail for conflicting options for default agent x deployment agent
+    fail:
+      msg: "The AGENT_POOL({{ AGENT_POOL }}) and DEPLOYMENT_GROUP_NAME({{ DEPLOYMENT_GROUP_NAME }}) vars are present at same time, choose one of them to install the default queue/build agent or the deployment group agent."
+    when:
+      - AGENT_POOL|default("") != "" 
+      - DEPLOYMENT_GROUP_NAME|default("") != ""
+
+  - name: Add deployment group args to install command
+    set_fact:
+      install_command: "{{ install_command }} --deploymentGroup --deploymentGroupName {{ DEPLOYMENT_GROUP_NAME }}"
+    when: DEPLOYMENT_GROUP_NAME|default("") != "" 
+
+  - name: Add deployment group tags to install command
+    set_fact:
+      install_command: "{{ install_command }} --addDeploymentGroupTags --deploymentGroupTags {{ DEPLOYMENT_GROUP_TAGS }}"
+    when: DEPLOYMENT_GROUP_TAGS|default("") != ""
+
+  - name: Add logon to install command
+    set_fact:
+      install_command: "{{ install_command }} --windowsLogonAccount {{WINDOWS_ACCOUNT}}"
+    when: WINDOWS_ACCOUNT|default("") != ""
+
+  - name: Add logon password to install command
+    set_fact:
+      install_command: "{{ install_command }} --windowsLogonPassword {{WINDOWS_PASS_ACCOUNT}}"
+    when: WINDOWS_PASS_ACCOUNT|default("") != ""
+
+  - name: Add proxy url to install command
+    set_fact:
+      install_command: "{{ install_command }} --proxyurl {{PROXY_URL}}"
+    when: PROXY_URL|default("") != ""
+
+  - name: Add proxy credentials to install command
+    set_fact:
+      install_command: "{{ install_command }} --proxyusername {{PROXY_USERNAME}} --proxypassword {{PROXY_PASS}}"
+    when: 
+      - PROXY_USERNAME|default("") != ""
+      - PROXY_PASS|default("") != ""
+
+  - name: Install VSTS Agent
+    win_command: "{{ install_command }}"

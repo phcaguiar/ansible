@@ -1,0 +1,20 @@
+---
+
+- name: Check if vsts agent service already installed
+  win_service:
+    name: "vstsagent.{{VSTS_ACCOUNT_NAME}}.{{AGENT_NAME}}"
+  register: vsts_service_result
+  failed_when: vsts_service_result is not defined
+  ignore_errors: yes
+
+- name: Include get agent files tasks
+  include_tasks: get_agent_files.yml
+  when: not vsts_service_result.exists
+
+- name: Include install agent tasks
+  include_tasks: install_vsts_agent.yml
+  when: not vsts_service_result.exists
+
+- name: Include proxy bypass tasks
+  include_tasks: setup-proxy-bypass.yml
+  when: not vsts_service_result.exists

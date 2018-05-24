@@ -1,0 +1,17 @@
+---
+  - name: Create directory for deploy VSTS Agent
+    win_file:
+      path: "{{ AGENT_FOLDER }}"
+      state: directory
+
+  - name: Download VSTS Agent Zip
+    win_get_url:
+      url: "{{ AGENT_DOWNLOAD_URL }}"
+      dest: "{{ AGENT_FOLDER }}\\agent.zip"
+      force: no
+
+  - name: Unzip VSTS Agent
+    win_unzip:
+      src: "{{ AGENT_FOLDER }}\\agent.zip"
+      dest: "{{ AGENT_FOLDER }}"
+      creates: "{{ AGENT_FOLDER }}\\config.cmd"

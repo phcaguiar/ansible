@@ -1,0 +1,22 @@
+---
+# Defaults configs for stone-payments.win-vsts-agent
+AGENT_FOLDER: "C:\\vstsagent"
+AGENT_DOWNLOAD_URL: "https://vstsagentpackage.azureedge.net/agent/2.129.1/vsts-agent-win-x64-2.129.1.zip"
+VSTS_URL: "https://{{ VSTS_ACCOUNT_NAME }}.visualstudio.com"
+VSTS_ACCOUNT_NAME: mycompany
+# Specific configs
+AUTH_TOKEN: ""
+AGENT_NAME: "{{ansible_hostname}}"
+PROJECT_NAME: ""
+# To use Deplyment Group
+DEPLOYMENT_GROUP_NAME: ""
+# To use Deplyment Group Tags
+DEPLOYMENT_GROUP_TAGS: ""
+# To use specific user account to run the service.
+WINDOWS_ACCOUNT: "NT AUTHORITY/SYSTEM"
+WINDOWS_PASS_ACCOUNT: ""
+PROXY_URL: ""
+PROXY_USERNAME: ""
+PROXY_PASS: ""
+# Insert IP Addresses for proxybypass file:x
+PROXYBYPASS: ""
