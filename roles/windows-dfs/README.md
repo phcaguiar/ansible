@@ -16,7 +16,7 @@ Use the winrm connection configuration with transport [CredSSP](https://docs.ans
 Role Variables
 --------------
 
-To execute this role it is necessary to fill in the variables file [main.yml](https://github.com/stone-payments/ansible-dfs/blob/master/defaults/main.yml).
+To execute this role it is necessary to fill in the variables file [main.yml](https://github.com/phcaguiar/ansible/blob/master/roles/windows-dfs/defaults/main.yml).
 
 Directory Tree
 ----------------
