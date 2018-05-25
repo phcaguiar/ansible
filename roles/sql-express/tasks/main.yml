@@ -1,0 +1,4 @@
+---
+- name: Execute Tasks for Windows OS
+  include_tasks: windows/main.yml
+  when: ansible_os_family == "Windows"

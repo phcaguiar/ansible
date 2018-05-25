@@ -1,0 +1,17 @@
+---
+ - name: check downloaded file exists
+   win_stat:
+      path: "{{ ansible_env.TEMP }}\\sql\\sql_installer.exe"
+   register: installer_file
+
+ - name: get the installer
+   win_get_url:
+        url: 'http://download.microsoft.com/download/E/A/E/EAE6F7FC-767A-4038-A954-49B8B05D04EB/ExpressAndTools%2064BIT/SQLEXPRWT_x64_ENU.exe'
+        dest: "{{ ansible_env.TEMP }}\\sql\\sql_installer.exe"
+   when: not installer_file.stat.exists
+
+ - name: extract the installer
+   win_command: "{{ ansible_env.TEMP }}\sql\\sql_installer.exe /q /x:c:\sql\installer"
+   args:
+    chdir: "{{ ansible_env.TEMP }}\\sql"
+    creates: "{{ ansible_env.TEMP }}\\sql\\installer\\setup.exe"

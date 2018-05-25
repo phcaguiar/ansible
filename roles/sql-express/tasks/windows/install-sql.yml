@@ -1,0 +1,12 @@
+---
+ - name: Install the database
+   win_command: "{{ ansible_env.TEMP }}\\sql\\installer\\setup.exe /configurationfile={{ ansible_env.TEMP }}\\sql\\sql_conf.ini"
+   args:
+    chdir: "{{ ansible_env.TEMP }}\\sql"
+      
+ - name: Add or update registry for ip port
+   win_regedit:
+     path: 'HKLM:\Software\Microsoft\Microsoft SQL Server\MSSQL12.{{ sql_instance_name }}\MSSQLServer\SuperSocketNetLib\Tcp\IPAll'
+     name: TcpPort
+     data: 1433
+   register: win_reg

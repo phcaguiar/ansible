@@ -1,0 +1,24 @@
+---
+- name: Create SQL Directories
+  include: create-directories.yml
+  tags: sql-directories
+
+- name: Copy SQL Configuration File
+  include: copy-template.yml
+  tags: sql-configuration-file
+
+- name: Install Windows Feature
+  include: install-features.yml
+  tags: sql-features
+
+- name: Download MS SQL Express
+  include: download-file.yml
+  tags: sql-files
+
+- name: Install MS SQL Express
+  include: install-sql.yml
+  tags: sql-install
+
+- name: Restart MS SQL Service
+  include: restart-service.yml
+  tags: sql-restart-service

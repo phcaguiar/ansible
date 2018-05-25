@@ -1,0 +1,10 @@
+---
+- name: create a directory for installer download
+   win_file: 
+      path: "{{ ansible_env.TEMP }}\\sql"
+      state: directory
+   
+ - name: create a directory for installer extraction
+   win_file: 
+      path: "{{ ansible_env.TEMP }}\\sql\\installer"
+      state: directory

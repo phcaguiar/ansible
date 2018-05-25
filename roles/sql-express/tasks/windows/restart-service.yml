@@ -1,0 +1,7 @@
+---
+ - name: Restart a service
+   win_service:
+     name: 'MSSQL${{ sql_instance_name }}'
+     force_dependent_services: yes
+     state: restarted
+   when: win_reg.changed
