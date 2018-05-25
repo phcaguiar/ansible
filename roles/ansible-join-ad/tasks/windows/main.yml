@@ -1,0 +1,6 @@
+---
+- name: includes tasks to enroll a windows host into Active Directory domain
+  include_tasks: join.yml
+
+# - name: includes tasks to unenroll a windows host into Active Directory domain
+#   include_tasks: remove.yml

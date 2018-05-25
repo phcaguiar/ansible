@@ -1,0 +1,12 @@
+---
+
+joinad_domain_controller_ip: null
+
+joinad_dns_server: "{{ common_dns_server }}"
+joinad_dns_domain: "{{ common_dns_domain }}"
+
+joinad_enrollment_user: null
+joinad_enrollment_password: null
+
+# to enroll a windows host in the specific OU
+joinad_enrollment_ou_path: null

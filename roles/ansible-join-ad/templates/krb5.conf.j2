@@ -1,0 +1,25 @@
+[loggin]
+default = FILE:/var/log/krb5libs.log
+kdc = FILE:/var/log/krb5kdc.log
+admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+default_realm = {{ joinad_dns_domain|upper }}
+dns_lookup_realm = true
+dns_lookup_kdc = true
+ticket_lifetime = 24h
+renew_lifetime = 7d
+default_keytab_name = /etc/krb5.keytab
+
+[realms]
+{{ joinad_dns_domain|upper }} = {
+{% for dns in joinad_dns_server %}
+kdc = {{dns}}
+{% endfor %}
+admin_server = {{ joinad_domain_controller_ip }}
+default_domain = {{ joinad_dns_domain|lower }}
+}
+
+[domain_realm]
+.{{ joinad_dns_domain|lower }} = {{ joinad_dns_domain|upper }}
+{{ joinad_dns_domain|lower }} = {{ joinad_dns_domain|upper }}

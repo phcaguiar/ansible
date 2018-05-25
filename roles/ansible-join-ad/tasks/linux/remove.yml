@@ -1,0 +1,16 @@
+---
+- name: verify if keytab exists
+  command: klist
+  register: klist_cmd
+  changed_when: klist_cmd.rc == 0
+  failed_when: false
+
+- name: removes keytabs
+  command: kdestroy
+  changed_when: klist_cmd|changed
+
+- name: remove from MS AD
+  shell: echo {{ joinad_enrollment_password }} | realm leave --user {{ joinad_enrollment_user }} --remove --verbose
+  register: realm_leave
+  changed_when: realm_leave.rc == 0
+  ignore_errors: true

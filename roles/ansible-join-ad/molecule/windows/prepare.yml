@@ -1,0 +1,6 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  tasks:
+    - debug: msg="*** It's don't have necessary..."

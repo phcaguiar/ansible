@@ -1,0 +1,33 @@
+---
+- block:
+    - name: enroll in to Active Directory domain
+      win_domain_membership:
+        dns_domain_name: "{{ joinad_dns_domain }}"
+        hostname: "{{ ansible_hostname }}"
+        domain_admin_user: "{{ joinad_enrollment_user }}@{{ joinad_dns_domain }}"
+        domain_admin_password: "{{ joinad_enrollment_password }}"
+        state: domain
+      register: domain_membership_result
+
+    - name: reboot host after enroll in to Active Directory
+      win_reboot:
+      when: domain_membership_result.reboot_required
+
+  when: joinad_enrollment_ou_path is none
+
+- block:
+    - name: enroll in to Active Directory domain in a especify OU
+      win_domain_membership:
+        dns_domain_name: "{{ joinad_dns_domain }}"
+        hostname: "{{ ansible_hostname }}"
+        domain_admin_user: "{{ joinad_enrollment_user }}@{{ joinad_dns_domain }}"
+        domain_admin_password: "{{ joinad_enrollment_password }}"
+        domain_ou_path: "{{ joinad_enrollment_ou_path }}"
+        state: domain
+      register: domain_membership_result
+
+    - name: reboot host after enroll in to Active Directory
+      win_reboot:
+      when: domain_membership_result.reboot_required
+
+  when: joinad_enrollment_ou_path is not none

@@ -1,0 +1,5 @@
+molecule>=2.12.1
+ansible>=2.5.0
+testinfra>=1.11.1
+python-vagrant>=0.5.15
+pywinrm>=0.3.0

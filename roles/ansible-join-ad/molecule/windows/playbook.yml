@@ -1,0 +1,11 @@
+---
+- name: Playbook to enroll a Windows host into Active Directory domain
+  hosts: all
+  vars:
+    joinad_dns_server: ""
+    joinad_dns_domain: ""
+    joinad_enrollment_user: null
+    joinad_enrollment_password: null
+    joinad_enrollment_ou_path: null
+  roles:
+    - role: stone-payments.join-ad

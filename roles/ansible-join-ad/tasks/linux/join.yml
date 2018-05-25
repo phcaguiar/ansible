@@ -1,0 +1,72 @@
+---
+- name: installs required packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ joinad_required_packages }}"
+
+- name: copies realmd.conf config file
+  template:
+    src: realmd.conf.j2
+    dest: /etc/realmd.conf
+    owner: root
+    group: root
+    mode: 0664
+
+- name: copies kerberos config file
+  template:
+    src: krb5.conf.j2
+    dest: /etc/krb5.conf
+    owner: root
+    group: root
+    mode: 0664
+
+- name: verify if keytab exists
+  command: klist
+  register: klist_cmd
+  changed_when: klist_cmd.rc == 0
+  failed_when: false
+
+- name: removes keytab existing
+  command: kdestroy
+  register: kdestroy
+  when: klist_cmd|changed
+  tags: skip_ansible_lint
+
+- name: creates keytab for connect to Active Directory
+  shell: echo {{ joinad_enrollment_password }} | kinit {{ joinad_enrollment_user }}
+  register: kinit_cmd
+  changed_when: kinit_cmd.rc == 0
+  ignore_errors: true
+  no_log: true
+
+- name: enroll in to Active Directory domain
+  command: realm join {{ joinad_dns_domain|lower }} --verbose
+  register: join_ad
+  ignore_errors: true
+  changed_when: join_ad.rc == 0
+  when: kinit_cmd|changed
+  tags: skip_ansible_lint
+
+- block:
+    - name: config SSSD
+      lineinfile:
+        path: /etc/sssd/sssd.conf
+        line: "dyndns_iface = {{ ansible_default_ipv4.interface }}"
+        state: present
+      notify: restart sssd
+
+    - name: config sudoers
+      blockinfile:
+        path: /etc/sudoers
+        insertafter: "^root"
+        block: |
+          # Allows members of the groups below to run all commands
+          %gg_linux_operations_adm@{{ joinad_dns_domain }}    ALL=(ALL)   NOPASSWD: ALL
+          %gg_linux_engineering_adm@{{ joinad_dns_domain }}   ALL=(ALL)   NOPASSWD: ALL
+          %gg_linux_evolucaoinfra@{{ joinad_dns_domain }}     ALL=(ALL)   NOPASSWD: ALL
+        marker: "## {mark} - Ansible managed block"
+
+    - name: reload ansible_local facts
+      setup: filter="ansible_local"
+  when: join_ad|changed
