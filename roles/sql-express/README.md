@@ -1,3 +1,5 @@
+![alt text](https://github.com/phcaguiar/ansible/blob/master/roles/sql-express/img/logo.svg)
+
 SQL Express Installer
 =========
 

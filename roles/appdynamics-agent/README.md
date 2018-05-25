@@ -1,4 +1,4 @@
-![alt text](https://github.com/phcaguiar/ansible/tree/master/roles/appdynamics-agent/img/logo.svg)
+![alt text](https://github.com/phcaguiar/ansible/blob/master/roles/appdynamics-agent/img/logo.svg)
 
 AppDynamics Installer
 =========

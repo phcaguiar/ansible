@@ -1,4 +1,4 @@
-![alt text](https://github.com/phcaguiar/ansible/tree/master/roles/windows-dfs/img/img.svg)
+![alt text](https://github.com/phcaguiar/ansible/blob/master/roles/windows-dfs/img/img.svg)
 
 DFS 
 =========
