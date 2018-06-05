@@ -94,10 +94,10 @@ Function SetACLDFSRootPath {
                     Fail-Json $result "The Parameter dfs_root_path is mandatory."
                 }
                 else {
-					icacls "$dfs_root_path" /inheritance:r
-					icacls "$dfs_root_path" /grant '"Creator Owner":(OI)(CI)(IO)M'
-					icacls "$dfs_root_path" /grant '"Administrators":(OI)(CI)F'
-					icacls "$dfs_root_path" /grant '"System":(OI)(CI)F'
+			icacls "$dfs_root_path" /inheritance:r
+			icacls "$dfs_root_path" /grant '"Creator Owner":(OI)(CI)(IO)M'
+			icacls "$dfs_root_path" /grant '"Administrators":(OI)(CI)F'
+			icacls "$dfs_root_path" /grant '"System":(OI)(CI)F'
                 }
         } catch [Exception] {
         Fail-Json $result "Some function error occurred on Function SetACLDFSPath."
@@ -110,11 +110,11 @@ Function SetACLDFSRootShare {
                     Fail-Json $result "The Parameter dfs_root_path is mandatory."
                 }
                 else {
-					icacls "$dfs_root_path\$dfs_share_name" /inheritance:r
-					icacls "$dfs_root_path\$dfs_share_name" /grant '"Creator Owner":(OI)(CI)(IO)M'
-					icacls "$dfs_root_path\$dfs_share_name" /grant '"Everyone":(OI)(CI)R'
-					icacls "$dfs_root_path\$dfs_share_name" /grant '"Administrators":(OI)(CI)F'
-					icacls "$dfs_root_path\$dfs_share_name" /grant '"System":(OI)(CI)F'
+			icacls "$dfs_root_path\$dfs_share_name" /inheritance:r
+			icacls "$dfs_root_path\$dfs_share_name" /grant '"Creator Owner":(OI)(CI)(IO)M'
+			icacls "$dfs_root_path\$dfs_share_name" /grant '"Everyone":(OI)(CI)R'
+			icacls "$dfs_root_path\$dfs_share_name" /grant '"Administrators":(OI)(CI)F'
+			icacls "$dfs_root_path\$dfs_share_name" /grant '"System":(OI)(CI)F'
                 }
         } catch [Exception] {
         Fail-Json $result "Some function error occurred on Function SetACLDFSRootShare."
