@@ -1,0 +1,12 @@
+---
+- name: Playbook to enroll a Linux host into Active Directory domain
+  hosts: all
+  become: true
+  vars:
+    joinad_domain_controller_ip: ""
+    joinad_dns_server: ""
+    joinad_dns_domain: ""
+    joinad_enrollment_user: null
+    joinad_enrollment_password: null
+  roles:
+    - role: stone-payments.join-ad

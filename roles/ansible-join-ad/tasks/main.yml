@@ -1,0 +1,15 @@
+---
+- name: check if unenroll_user and unenroll_password are setted
+  fail:
+    msg: "The variable joinad_enrollment_user and joinad_enrollment_password is required."
+  when:
+    - joinad_enrollment_user is none
+    - joinad_enrollment_password is none
+
+- name: includes tasks if SO be Windows
+  include_tasks: windows/main.yml
+  when: ansible_os_family == "Windows"
+
+- name: includes tasks if SO not be Windows
+  include_tasks: linux/main.yml
+  when: ansible_os_family != "Windows"

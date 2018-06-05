@@ -1,0 +1,13 @@
+---
+- name: unenroll in to Active Directory domain
+  script: scripts/RemoveComputer.ps1
+            -domain {{ joinad_dns_domain }}
+            -username {{ joinad_enrollment_user }}
+            -password {{ joinad_enrollment_password }}
+  register: script_result
+  failed_when: script_result.rc > 1
+  changed_when: script_result.rc == 0
+
+- name: wait for reboot be completed
+  wait_for_connection:
+  when: script_result is changed

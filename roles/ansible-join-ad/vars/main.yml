@@ -1,0 +1,9 @@
+---
+
+joinad_required_packages:
+  - realmd
+  - oddjob
+  - oddjob-mkhomedir
+  - sssd
+  - adcli
+  - krb5-workstation

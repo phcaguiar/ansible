@@ -1,0 +1,19 @@
+---
+- block:
+    - debug: msg="*** The tasks below are executed when a machine isn't enrollment in any domain"
+
+    - name: include configurations to join at AD
+      include: join.yml
+  when: ansible_local.phcaguiar_realm.stone_realm_name == ""
+  become: true
+
+- block:
+    - debug: msg="*** The tasks below are executed when a machine is in different domain of what should be"
+
+    - name: leave of Active Directory
+      include: remove.yml
+
+    - name: enroll join in the Active Directory
+      include: join.yml
+  when: ansible_local.phcaguiar_realm.stone_realm_name != joinad_dns_domain|upper
+  become: true

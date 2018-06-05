@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Pedro Aguiar
+  description: Role to enroll a linux server in a Active Directory domain
+  company: 
+  license: MIT
+  min_ansible_version: 2.0.0
+  platforms:
+    - name: EL
+      versions:
+        - 7
+  galaxy_tags:
+    - joinad
+    - active directory

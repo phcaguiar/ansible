@@ -1,0 +1,34 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: joinad
+    box: mwrock/Windows2016
+    cpus: 2
+    memory: 2048
+    provider_options:
+      gui: false
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  connection_options:
+    ansible_connection: winrm
+    ansible_host: 127.0.0.1
+    ansible_port: 55985
+    ansible_user: vagrant
+    ansible_password: vagrant
+    ansible_winrm_transport: ntlm
+    ansible_winrm_scheme: http
+scenario:
+  name: windows
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
