@@ -25,10 +25,8 @@ $enable_insite_referrals = Get-AnsibleParam -obj $params -name "enable_insite_re
 $enable_access_based_enumeration = Get-AnsibleParam -obj $params -name "enable_access_based_enumeration" -type "bool" -default $false
 $enable_root_scalability = Get-AnsibleParam -obj $params -name "enable_root_scalability" -type "bool" -default $false
 $enable_target_failback = Get-AnsibleParam -obj $params -name "enable_target_failback" -type "bool" -default $false
-
 $dfs_share_read_access = Get-AnsibleParam -obj $params -name "dfs_share_read_access" -type "str" -default ""
 $dfs_share_full_access = Get-AnsibleParam -obj $params -name "dfs_share_full_access" -type "str" -default ""
-
 $domain_name = (Get-WmiObject win32_computersystem).Domain
 $primary_server_name = "\\"+$dfs_primary_server_name
 $nonprimary_server_name = "\\"+$dfs_nonprimary_server_name
@@ -41,8 +39,6 @@ $dfsn_root_nonprimary_server_targetpath_standalone_type = $nonprimary_server_nam
 $result = @{
     changed = $false
 }
-
-##DFS Basic Functions
 
 ### Instal DFS Function
 
@@ -65,7 +61,7 @@ Function InstallDFS {
     }
 }
 
-### Function DFSPath
+### Function to create DFS Root Path
 
 Function DFSPath {
         try {
@@ -86,7 +82,7 @@ Function DFSPath {
     }
 }
 
-### Function SetACLDFSPath
+### Function to Set Default ACL on DFS Root Path
 
 Function SetACLDFSRootPath {
         try {
@@ -103,6 +99,8 @@ Function SetACLDFSRootPath {
         Fail-Json $result "Some function error occurred on Function SetACLDFSPath."
     }
 }
+
+### Function to Set Default ACL on DFS Root Share
 
 Function SetACLDFSRootShare {
         try {
@@ -121,7 +119,7 @@ Function SetACLDFSRootShare {
     }
 }
 
-### Function DFSShare
+### Function to create DFS Root Share
 
 Function DFSShare {
         try {
