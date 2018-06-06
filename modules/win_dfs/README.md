@@ -6,8 +6,6 @@ Ansible Role to install and configure Windows DFS
 Task Options
 --------------
 
-Use the following options:<br/>
-
 **Mandatory**
 
 `dfs_primary_server_name:` ## Hostanme to primary DFS Server. Ex: `mydfsserver01`<br/>
