@@ -38,14 +38,22 @@ Example Task
 
 ```yaml
 ---
-- name: Task to deploy DFS
+- name: Task to deploy DFS Standalone Namespace Type
+  win_dfs:
+    dfs_primary_server_name: mydfsserver01
+    dfs_namespace_type: standalone
+    dfs_share_name: Share
+    dfs_root_path: C:\DFSRoot
+    enable_site_costing: $true
+
+---
+- name: Task to deploy DFS DomainV2 Namespace Type
   win_dfs:
     dfs_primary_server_name: mydfsserver01
     dfs_nonprimary_server_name: mydfsserver02
     dfs_namespace_type: domainv2
-    dfs_share_name: MyShare
+    dfs_share_name: Share
     dfs_root_path: C:\DFSRoot
-    enable_site_costing: $true
 ```
 
 License

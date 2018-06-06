@@ -78,7 +78,7 @@ EXAMPLES = r'''
     dfs_share_name: Share
     dfs_root_path: C:\DFSRoot
     enable_site_costing: $true
-- name: Task to deploy DFS Standalone Namespace Type
+- name: Task to deploy DFS DomainV2 Namespace Type
   win_dfs:
     dfs_primary_server_name: mydfsserver01
     dfs_nonprimary_server_name: mydfsserver02
