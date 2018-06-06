@@ -16,7 +16,7 @@ Use the following options:<br/>
 `dfs_share_name:` ## Root Share to DFS. Ex: `MyShare`<br/>
 `dfs_root_path:` ## Root Path to DFS. Ex: `C:\DFSRoot`<br/>
 
-**Optional**
+**Optional**<br/>
 `dfs_replication_group_name` - Use this option to dfs replication group name. If no value is defined the value used will be the same as dfs_share_name.<br/>
 `dfs_replicated_folder_name` - Use this option to dfs replicated folder name. If no value is defined the value used will be the same as dfs_share_name.<br/>
 `enable_site_costing` - Boolean value. The default value is `$false`.<br/>
