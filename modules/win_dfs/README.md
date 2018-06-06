@@ -25,7 +25,7 @@ Use the following options:<br/>
 `enable_root_scalability` - Boolean value. The default value is `$false`.<br/>
 `enable_target_failback` - Boolean value. The default value is `$false`.<br/>
 
-Options Task
+Example Task
 ----------------
 
 ```yaml
