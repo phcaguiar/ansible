@@ -4,7 +4,7 @@ Windows DFS Ansible Role Installer
 Ansible Role to install and configure Windows DFS. This ansible role does:<br/>
 
  - Install FS-DFS-Namespace, FS-DFS-Replication and RSAT-DFS-Mgmt-Con windows features
- - Creates the root directory and root share for DFS
+ - Creates the root directory and root share directory for DFS
  - Configures the ACLs for the root directory and root share
  - Creates DFS root share
  - Configure the DFS namespace
