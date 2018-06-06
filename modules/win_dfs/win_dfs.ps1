@@ -48,7 +48,7 @@ Function InstallDFS {
                 } else {
                         $feature_is_installed = Get-WindowsFeature -Name FS-DFS-Namespace, FS-DFS-Replication, RSAT-DFS-Mgmt-Con
                         if ($feature_is_installed.Installed -eq $true) {
-                                $result.changed = $true
+                                $result.changed = $false
                         }
                         else {
                                 Install-WindowsFeature FS-DFS-Namespace, FS-DFS-Replication, RSAT-DFS-Mgmt-Con
