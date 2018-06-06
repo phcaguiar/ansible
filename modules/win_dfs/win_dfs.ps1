@@ -199,7 +199,7 @@ Function DfsrConnection {
                         Fail-Json $result "The Parameter dfs_share_name is mandatory."
                 }
                 else {
-                Add-DfsrConnection -GroupName $dfs_share_name -SourceComputerName "$dfs_primary_server_name.$domain_name" -DestinationComputerName "$dfs_nonprimary_server_name.$domain_name"
+                Add-DfsrConnection -GroupName $dfs_replication_group_name -SourceComputerName "$dfs_primary_server_name.$domain_name" -DestinationComputerName "$dfs_nonprimary_server_name.$domain_name"
                 }
         } catch [Exception] {
         Fail-Json $result "Some function error occurred on Function DfsrConnection."
@@ -212,7 +212,7 @@ Function DfsrSetPrimaryMembership {
                         Fail-Json $result "The Parameter dfs_root_path is mandatory."
                 }
                 else {
-                Set-DfsrMembership -GroupName $dfs_share_name -FolderName $dfs_replicated_folder_name -ContentPath $dfs_root_path\$dfs_share_name -ComputerName "$dfs_primary_server_name.$domain_name" -PrimaryMember $true -Force
+                Set-DfsrMembership -GroupName $dfs_replication_group_name -FolderName $dfs_replicated_folder_name -ContentPath $dfs_root_path\$dfs_share_name -ComputerName "$dfs_primary_server_name.$domain_name" -PrimaryMember $true -Force
                 }
         } catch [Exception] {
         Fail-Json $result "Some function error occurred on Function DfsrSetPrimaryMembership."
