@@ -33,8 +33,7 @@ $nonprimary_server_name = "\\"+$dfs_nonprimary_server_name
 $dfsn_root_path_domain_type = "\\"+$domain_name+"\"+$dfs_share_name
 $dfsn_root_primary_server_targetpath_domain_type = $primary_server_name+"."+$domain_name+"\"+$dfs_share_name
 $dfsn_root_nonprimary_server_targetpath_domain_type = $nonprimary_server_name+"."+$domain_name+"\"+$dfs_share_name
-$dfsn_root_primary_server_targetpath_standalone_type = $primary_server_name+$dfs_share_name
-$dfsn_root_nonprimary_server_targetpath_standalone_type = $nonprimary_server_name+$dfs_share_name
+$dfsn_root_primary_server_targetpath_standalone_type = $primary_server_name+"\"+$dfs_share_name
 
 $result = @{
     changed = $false
@@ -135,7 +134,7 @@ Function DFSShare {
     }
 }
 
-##DFS Advanced Functions
+##DFS Config Functions
 
 Function DfsnRoot {
         try {
@@ -147,7 +146,7 @@ Function DfsnRoot {
                                 New-DfsnRoot -Path $dfsn_root_path_domain_type -TargetPath $dfsn_root_primary_server_targetpath_domain_type -Type $dfs_namespace_type -EnableSiteCosting $enable_site_costing -EnableInsiteReferrals $enable_insite_referrals -EnableAccessBasedEnumeration $enable_access_based_enumeration -EnableRootScalability $enable_root_scalability -EnableTargetFailback $enable_target_failback
                         }
                         elseif ($dfs_namespace_type -eq "standalone") {
-                                New-DfsnRoot -Path $dfsn_root_path_standalone_type -TargetPath $dfsn_root_targetpath_standalone_type -Type $dfs_namespace_type -EnableSiteCosting
+                                New-DfsnRoot -TargetPath $dfsn_root_primary_server_targetpath_standalone_type -Type $dfs_namespace_type
                         }
                 }
         } catch [Exception] {
@@ -190,7 +189,7 @@ Function DfsrMembership {
                 Set-DfsrMembership -GroupName $dfs_replication_group_name -FolderName $dfs_replicated_folder_name -ContentPath "$dfs_root_path\$dfs_share_name" -ComputerName "$dfs_primary_server_name.$domain_name","$dfs_nonprimary_server_name.$domain_name" $true -Force
                 }
         } catch [Exception] {
-        Fail-Json $result "Some function error occurred on Function DfsrMembershipPrimaryMember."
+        Fail-Json $result "Some function error occurred on Function DfsrMembership."
     }
 }
 
@@ -216,9 +215,11 @@ Function DfsrSetPrimaryMembership {
                 Set-DfsrMembership -GroupName $dfs_share_name -FolderName $dfs_replicated_folder_name -ContentPath $dfs_root_path\$dfs_share_name -ComputerName "$dfs_primary_server_name.$domain_name" -PrimaryMember $true -Force
                 }
         } catch [Exception] {
-        Fail-Json $result "Some function error occurred on Function DfsrMembership."
+        Fail-Json $result "Some function error occurred on Function DfsrSetPrimaryMembership."
     }
 }
+
+## Run Functions
 
 InstallDFS
 DFSPath
