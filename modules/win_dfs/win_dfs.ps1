@@ -95,7 +95,7 @@ Function SetACLDFSRootPath {
 			icacls "$dfs_root_path" /grant '"System":(OI)(CI)F'
                 }
         } catch [Exception] {
-        Fail-Json $result "Some function error occurred on Function SetACLDFSPath."
+        Fail-Json $result "Some function error occurred on Function SetACLDFSRootPath."
     }
 }
 
