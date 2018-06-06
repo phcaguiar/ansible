@@ -145,7 +145,7 @@ Function DfsnRoot {
                         if ($dfs_namespace_type -eq "domainv1" -or "domainv2") {
                                 New-DfsnRoot -Path $dfsn_root_path_domain_type -TargetPath $dfsn_root_primary_server_targetpath_domain_type -Type $dfs_namespace_type -EnableSiteCosting $enable_site_costing -EnableInsiteReferrals $enable_insite_referrals -EnableAccessBasedEnumeration $enable_access_based_enumeration -EnableRootScalability $enable_root_scalability -EnableTargetFailback $enable_target_failback
                         }
-                        elseif ($dfs_namespace_type -eq "standalone") {
+                        if ($dfs_namespace_type -eq "standalone") {
                                 New-DfsnRoot -TargetPath $dfsn_root_primary_server_targetpath_standalone_type -Type $dfs_namespace_type
                         }
                 }
